@@ -4,11 +4,15 @@ ob_start();
 session_start();
 require "config.php";
 
-$user = $_SESSION['username'];
+$user = $_SESSION['username']; //set your username to variable called user
 
 $query = mysqli_query($link, "SELECT turn FROM citadels WHERE username = '$user'");
 $result = mysqli_fetch_array($query);
-$turn = $result['turn'];
+$turn = $result['turn']; //gets value of turn for your user-- you need all 3 lines
+
+$query = mysqli_query($link, "SELECT id FROM citadels WHERE username = '$user'");
+$result = mysqli_fetch_array($query);
+$id = $result['id'];
 
 $query = mysqli_query($link, "SELECT gold FROM citadels WHERE username = 'bot   '");
 $result = mysqli_fetch_array($query);
@@ -41,13 +45,50 @@ if($phase == 1){
         for($i = 1; $i <= 8; $i++){
         
             $array1 = array($i);
-            if(implode("",array_intersect($array1,$impossible_roles))==$i){
-            
-            
+            if(implode("",array_intersect($array1,$impossible_roles))==$i){  
             }
             else{
+                if($i==1){
+                    $role = "Assassin";
+                }
+                if($i==2){
+                    $role = "Thief";
+                }
+                if($i==3){
+                    $role = "Magician";
+                }
+                if($i==4){
+                    $role = "King";
+                }
+                if($i==5){
+                    $role = "Bishop";
+                }
+                if($i==6){
+                    $role = "Merchant";
+                }
+                if($i==7){
+                    $role = "Architect";
+                }
+                if($i==8){
+                    $role = "Warlord";
+                }
                 
-                echo $i;
+                echo "<form method='POST' action='".htmlspecialchars($_SERVER["PHP_SELF"])."'>";
+                echo "<input type='submit' name='". $i ."' value = '" . $role . "' />";
+            }
+            
+            if(isset($_POST['2'])){
+                mysqli_query($link, "UPDATE citadels SET role1='2' WHERE username='".$user."'"); //updates the database
+                if($id==$total){
+                    mysqli_query($link, "UPDATE citadels SET turn='0' WHERE username='".$user."'");
+                    mysqli_query($link, "UPDATE citadels SET turn='1' WHERE id='2'");
+                }
+                else{
+                    $newid = $id+1;
+                    mysqli_query($link, "UPDATE citadels SET turn='1' WHERE id='".$newid."'");
+                    mysqli_query($link, "UPDATE  citadels SET turn='0' WHERE username='".$user."'");
+                }
+                header("Location:play.php");
             }
             
         
