@@ -10,6 +10,10 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   header("location: login2.php");
   exit;
 }
+else{
+  header("location: play.php");
+  exit;
+}
 
 ?>
 

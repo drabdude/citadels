@@ -77,8 +77,37 @@ if($phase == 1){
                 echo "<input type='submit' name='". $i ."' value = '" . $role . "' />";
             }
             
+            
+            if(isset($_POST['1'])){
+                mysqli_query($link, "UPDATE citadels SET role1='1' WHERE username='".$user."'"); //updates the database
+            }
+            
             if(isset($_POST['2'])){
                 mysqli_query($link, "UPDATE citadels SET role1='2' WHERE username='".$user."'"); //updates the database
+            }
+            if(isset($_POST['3'])){
+                mysqli_query($link, "UPDATE citadels SET role1='3' WHERE username='".$user."'"); //updates the database
+            }
+            if(isset($_POST['4'])){
+                mysqli_query($link, "UPDATE citadels SET role1='4' WHERE username='".$user."'"); //updates the database
+            }
+            if(isset($_POST['5'])){
+                mysqli_query($link, "UPDATE citadels SET role1='5' WHERE username='".$user."'"); //updates the database
+            }
+            if(isset($_POST['6'])){
+                mysqli_query($link, "UPDATE citadels SET role1='6' WHERE username='".$user."'"); //updates the database
+            }
+            if(isset($_POST['7'])){
+                mysqli_query($link, "UPDATE citadels SET role1='7' WHERE username='".$user."'"); //updates the database
+            }
+            if(isset($_POST['8'])){
+                mysqli_query($link, "UPDATE citadels SET role1='8' WHERE username='".$user."'"); //updates the database
+            }
+            
+            
+            
+            if(isset($_POST['1']) || isset($_POST['2']) || isset($_POST['3']) || isset($_POST['4']) || isset($_POST['5']) || isset($_POST['6']) || isset($_POST['7']) || isset($_POST['8'])){
+                
                 if($id==$total){
                     mysqli_query($link, "UPDATE citadels SET turn='0' WHERE username='".$user."'");
                     mysqli_query($link, "UPDATE citadels SET turn='1' WHERE id='2'");
@@ -88,9 +117,9 @@ if($phase == 1){
                     mysqli_query($link, "UPDATE citadels SET turn='1' WHERE id='".$newid."'");
                     mysqli_query($link, "UPDATE  citadels SET turn='0' WHERE username='".$user."'");
                 }
-                header("Location:play.php");
+                header("Location:play.php");   
+                
             }
-            
         
         
         
