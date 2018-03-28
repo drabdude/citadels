@@ -2,7 +2,8 @@
 
 ob_start();
 session_start();
-require "config.php";
+
+require_once ("config.php");
 
 $user = $_SESSION['username']; //set your username to variable called user
 
@@ -19,11 +20,16 @@ $result = mysqli_fetch_array($query);
 $total = $result['gold'];
 
 
-$phase = 1; //in reality, we will get phase from database
+$phase = 0; //in reality, we will get phase from database
 
 $possible_roles = array(1,2,3,4,5,6,7,8);
 $impossible_roles = array(0);
 
+if($phase == 0){
+        $discard = rand(1,8);
+        mysqli_query($link, "UPDATE citadels SET role1='" . $discard . "' WHERE username='bot'");
+        $phase = 1;
+}
 
 if($phase == 1){
     if($turn == 1){
