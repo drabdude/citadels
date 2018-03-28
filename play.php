@@ -19,8 +19,10 @@ $query = mysqli_query($link, "SELECT gold FROM citadels WHERE username = 'bot   
 $result = mysqli_fetch_array($query);
 $total = $result['gold'];
 
+$query = mysqli_query($link, "SELECT turn FROM citadels WHERE username = 'bot   '");
+$result = mysqli_fetch_array($query);
+$phase = $result['turn'];
 
-$phase = 0; //in reality, we will get phase from database
 
 $possible_roles = array(1,2,3,4,5,6,7,8);
 $impossible_roles = array(0);
@@ -28,7 +30,8 @@ $impossible_roles = array(0);
 if($phase == 0){
         $discard = rand(1,8);
         mysqli_query($link, "UPDATE citadels SET role1='" . $discard . "' WHERE username='bot'");
-        $phase = 1;
+        mysqli_query($link, "UPDATE citadels SET turn='1' WHERE username='bot'");
+        header("Location:play.php");
 }
 
 if($phase == 1){
